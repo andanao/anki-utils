@@ -1,4 +1,5 @@
 test.py
+*.pass
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
