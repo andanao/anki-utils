@@ -17,18 +17,18 @@ commands.fv('loginform', 'username', username)
 commands.fv('loginform', 'pass', password)
 commands.submit()
 
-# %%
+# %% now actually download all the csvs
 
-# for i in range(5761,5886):
-for i in range(5761,5763):
+# for i in range(5761,5763):
+for i in range(5761,5886):
     deck_num = i-5760
+    print(f'\nStarting Deck {deck_num}')
     csv_url = f"https://www.tagalog.com/flashcards/export_anki.php?flipped=0&flash_card_set_id={i}&confirmed=1"
-    deck_name = os.path.join(os.getcwd(),f'csv/top_2000_dump_{str(deck_num).zfill(3)}.csv')
-    deck_dump = os.path.join(os.getcwd(),f'csv/top_2000_show_{str(deck_num).zfill(3)}.csv')
+    deck_name = os.path.join(os.getcwd(),f'csv/top_2000_{str(deck_num).zfill(3)}.csv')
+    print('going to url')
     commands.go(csv_url)
-    with open(deck_name, 'w+', encoding="UTF-8") as f:
-        f.write(commands.show())
-    with open(deck_name, 'w+', encoding="UTF-8") as f:
-        f.write(commands.show())
+    with open(deck_name, 'wb') as f:
+        print('writing to file')
+        f.write(browser.dump)
 
 
