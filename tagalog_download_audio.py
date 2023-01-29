@@ -7,6 +7,8 @@ from twill import commands
 from twill import browser
 # pandas for csvs
 import pandas as pd
+#import eyed3 to check audio files
+import eyed3
 
 # %%
 def url2file(url, filename):
@@ -30,21 +32,30 @@ for i,val in enumerate(csv_list):
     df_list.append(pd.read_csv(fname,names=['english', 'tagalog']))
 
 df = pd.concat(df_list)
-df = df.reset_index()
+df.reset_index()
 
 
 # %%
 # df_full = df
 # df = df_full.iloc[:3]
-for row in df.iterrows():
-    tstring = row[1]['tagalog']
-    sound_url = re.search("(?P<url>https?://[^\s]+.mp3)", tstring).group("url")
-    # print(sound_url)
-    fname = os.path.join('audio/',f'audio_card_{str(row[0]).zfill(4)}.mp3')
-    # print(fname)
-    commands.go(sound_url)
-    with open(fname, 'wb') as f:
-        print('writing to file')
-        f.write(browser.dump)
+
+i = 0
+# for i in range(df.shape[0]):
+while i < df.shape[0]:
+    print(f'\n{i}')
+    tstring = df.iloc[i, 1]
+    try:
+        sound_url = re.search("(?P<url>https?://[^\s]+.mp3)", tstring).group("url")
+    except:
+        sound_url = re.search("(?P<url>https?://[^\s]+.mp3)", tstring)
+    fname = os.path.join('audio/',f'tagalog_audio_card_{str(i).zfill(4)}.mp3')
+    url2file(sound_url,fname)
+    if eyed3.load(fname):
+        print('\tdownload success')
+        i += 1
+    else:
+        print('\tdownload failed ... retrying')
         time.sleep(1)
 
+
+   # i += 1
