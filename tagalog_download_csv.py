@@ -2,6 +2,7 @@
 import os
 from twill import commands
 from twill import browser
+import time
 
 # %%
 # Turns out I have to log in first and can't just spam the website :(
@@ -19,9 +20,8 @@ commands.submit()
 
 # %% now actually download all the csvs
 
-# for i in range(5761,5763):
-for i in range(5761,5886):
-    deck_num = i-5760
+for deck_num in range(1,126):
+    i = deck_num+5760
     print(f'\nStarting Deck {deck_num}')
     csv_url = f"https://www.tagalog.com/flashcards/export_anki.php?flipped=0&flash_card_set_id={i}&confirmed=1"
     deck_name = os.path.join(os.getcwd(),f'csv/top_2000_{str(deck_num).zfill(3)}.csv')
@@ -30,5 +30,6 @@ for i in range(5761,5886):
     with open(deck_name, 'wb') as f:
         print('writing to file')
         f.write(browser.dump)
+    time.sleep(1) # don't make too many requests or you'll get stopped
 
 
