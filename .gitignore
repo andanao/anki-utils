@@ -1,6 +1,7 @@
 test.py
 *.pass
 csv/*
+audio/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
