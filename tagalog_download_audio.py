@@ -2,11 +2,14 @@
 import os
 import re
 import time
+
 # twill for internetting
 from twill import commands
 from twill import browser
+
 # pandas for csvs
 import pandas as pd
+
 #import eyed3 to check audio files
 import eyed3
 
@@ -15,15 +18,12 @@ def url2file(url, filename):
     commands.go(url)
     with open(filename, 'wb') as f:
         print('writing to file')
-
         f.write(browser.dump)
         f.close()
 
 
-
 # %%
 csv_list = os.listdir('csv/')
-# csv_list = csv_list[:2] #just use the first 2 for testing
 
 df_list = []
 for i,val in enumerate(csv_list):
@@ -36,11 +36,8 @@ df.reset_index()
 
 
 # %%
-# df_full = df
-# df = df_full.iloc[:3]
 
 i = 0
-# for i in range(df.shape[0]):
 while i < df.shape[0]:
     print(f'\n{i}')
     tstring = df.iloc[i, 1]
@@ -58,4 +55,3 @@ while i < df.shape[0]:
         time.sleep(1)
 
 
-   # i += 1
