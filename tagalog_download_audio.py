@@ -9,6 +9,17 @@ from twill import browser
 import pandas as pd
 
 # %%
+def url2file(url, filename):
+    commands.go(url)
+    with open(filename, 'wb') as f:
+        print('writing to file')
+
+        f.write(browser.dump)
+        f.close()
+
+
+
+# %%
 csv_list = os.listdir('csv/')
 # csv_list = csv_list[:2] #just use the first 2 for testing
 
