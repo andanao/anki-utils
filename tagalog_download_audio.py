@@ -47,13 +47,15 @@ while i < df.shape[0]:
         sound_url = re.search("(?P<url>https?://[^\s]+.mp3)", tstring)
     if not sound_url: # apparently not everything has audio
         i += 1
-    fname = os.path.join('audio/',f'tagalog_audio_card_{str(i).zfill(4)}.mp3')
-    url2file(sound_url,fname)
-    if eyed3.load(fname):
-        print('\tdownload success')
-        i += 1
     else:
-        print('\tdownload failed ... retrying')
-        time.sleep(1)
+        fname = os.path.join('audio/',f'tagalog_audio_card_{str(i).zfill(4)}.mp3')
+        print(fname)
+        url2file(sound_url,fname)
+        if eyed3.load(fname):
+            print('\tdownload success')
+            i += 1
+        else:
+            print('\tdownload failed ... retrying')
+            time.sleep(1)
 
 
