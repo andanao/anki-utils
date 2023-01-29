@@ -5,9 +5,8 @@ import time
 # twill for internetting
 from twill import commands
 from twill import browser
-# pandas for anki and csvs
+# pandas for csvs
 import pandas as pd
-from ankipandas import Collection
 
 # %%
 csv_list = os.listdir('csv/')
