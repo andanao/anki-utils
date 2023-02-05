@@ -30,8 +30,10 @@ for audio in glob(os.path.join(os.getcwd(), 'audio/*.mp3')):
 # %%
 # cleanup html
 # for i in range(10):
+df['new_back'] = ''
 for i in range(df.shape[0]):
     temp = re.sub(r'\[sound:.*\]','', df.back[i])
+
     bs = BS(temp)
     advertise = bs.findAll('span')[-1]
     if advertise.text == 'Flash cards by Tagalog.com':
@@ -48,3 +50,9 @@ for i in range(df.shape[0]):
         for i in temp:
             if i and len(i.text) < 4:
                 i.name = 'u'
+    # print(bs.prettify())
+    df.new_back[i] = bs.prettify()
+    # print(df.back[i] == df.new_back[i])
+
+# %%
+# Finally make the deck
